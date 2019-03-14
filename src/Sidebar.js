@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
+import * as actionCreators from "./store/actions";
+import { connect } from "react-redux";
 
 // Logo
 import logo from "./assets/theindex.svg";
@@ -15,16 +17,31 @@ class Sidebar extends Component {
           </h4>
         </section>
         <div className="fixed-bottom">
-          <Link to="/login" className="btn btn-info m-2 float-left">
+          {!this.props.user ? <div> <Link to="/login" className="btn btn-info m-2 float-left">
             Login
           </Link>
-          <Link to="/signup" className="btn btn-success m-2 float-left">
-            Signup
-          </Link>
+            <Link to="/signup" className="btn btn-success m-2 float-left">
+              Signup
+          </Link></div> : <button className="btn btn-danger" onClick={() => this.props.logout()}>
+              Logout {this.props.user.username}
+            </button>}
+
+
         </div>
       </div>
     );
   }
 }
 
-export default Sidebar;
+
+
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(actionCreators.logout())
+});
+const mapStateToProps = state => ({
+  user: state.rootAuth.user
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+
+

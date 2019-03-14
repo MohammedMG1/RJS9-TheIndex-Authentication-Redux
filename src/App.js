@@ -11,10 +11,12 @@ import AuthorsList from "./AuthorsList";
 import AuthorDetail from "./AuthorDetail";
 import Signup from "./SignupForm";
 import Login from "./LoginForm";
+import { checkForExpiredToken } from "./store/actions/authentication";
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchAllAuthors();
+    this.props.checkForExpiredToken();
   }
 
   render() {
@@ -41,6 +43,7 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    checkForExpiredToken: () => dispatch(actionCreators.checkForExpiredToken()),
     fetchAllAuthors: () => dispatch(actionCreators.fetchAuthors())
   };
 };

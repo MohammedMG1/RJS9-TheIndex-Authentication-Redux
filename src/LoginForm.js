@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import * as actionCreators from "./store/actions"
+import { connect } from "react-redux";
 
 class Login extends Component {
   constructor(props) {
@@ -20,7 +22,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    this.props.login(this.state, this.props.history);
   }
 
   render() {
@@ -69,5 +71,10 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
+const mapDispatchToProps = dispatch => ({
+  login: userData => dispatch(actionCreators.login(userData))
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);

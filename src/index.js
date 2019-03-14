@@ -10,6 +10,7 @@ import thunk from "redux-thunk";
 import authorReducer from "./store/reducers/author";
 import authorsReducer from "./store/reducers/authors";
 import authReducer from "./store/reducers/authentication";
+// import store from "./store";
 
 // Components
 import App from "./App";
@@ -19,6 +20,8 @@ const rootReducer = combineReducers({
   rootAuthors: authorsReducer,
   rootAuth: authReducer
 });
+
+// store.dispatch(checkForExpiredToken());
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
